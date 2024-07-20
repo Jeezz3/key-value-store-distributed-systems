@@ -8,9 +8,7 @@ import time
 
 self_Socket = os.getenv("SOCKET_ADDRESS")
 socketAddress = []
-connectioncheck = False
 failed = []
-Loop = None
 log = []
 
 socket_threads = []
@@ -18,13 +16,6 @@ socket_threads = []
 keys = {}
 contexts = []
 vectorClock = {}
-
-queue = []
-
-Lock = threading.Lock()
-Lock_check = threading.Lock()
-notisolated = False
-iso_check = {}
 
 app = Flask(__name__)
 
@@ -249,22 +240,6 @@ def replica_update(key,context,vector,socket,op,val=None):
     log.append("return")
     return jsonify(msg="updated"),200
 
-# def replica_update(key,context,vector,socket,op,val=None):
-    global queue
-    queue.append((op,key,val,context,vector,socket))
-    queue = sort_queue(queue)
-    while(len(queue) != 0):
-        if check_causal(queue[0][4]) == False:
-            return jsonify(msg="delayed"),201
-        operation = queue.pop()
-        if operation[0] == 'p':
-            replica_put_key(operation[1],operation[2],operation[5])
-            vectorClock[operation[5]] += 1
-        elif operation[0] == "d":
-            replica_del_key(operation[1],operation[5])
-            vectorClock[operation[5]] += 1
-    return jsonify(msg="updated"),200
-
 def replica_put_key(key,value,socket):
     global contexts
     if key not in keys:
@@ -295,11 +270,6 @@ def boardcast_new_node(socketInfo):
 
     for t in threads:
         t.join()
-        
-        # try:
-        #     requests.put(h.make_URL(socket,"/view"),json = {"socket-address":socketInfo},timeout=(1.1,None))
-        # except requests.exceptions.RequestException:
-        #     continue
 
 def boardcast_put_key(key,value,context,vector):
     #global log

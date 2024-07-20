@@ -10,13 +10,20 @@ The broadcast function detects the replica being down or disconnected when writi
 
 ## Tracking Causal metadata:
 
-Vector clock was used to keep track of the causal metadata. The vector clock will be updated according to the number of write to a certain replica. When there is a request, it will check if the causal metadata is the same, if the input causal metadata is larger than the current causal metadata then it means it needs to handle eventual consistency. We used a hidden metadata "context" to keep track of the write history of the key-value store. This is intended for eventual consistency. Due to the implementation, the eventual consistency occurs on write, but not read. 
+A vector clock was used to track the causal metadata. The vector clock will be updated according to the number of writes to a certain replica. When there is a request, it will check if the causal metadata is the same, if the input causal metadata is larger than the current causal metadata then it means it needs to handle eventual consistency. We used a hidden metadata "context" to keep track of the write history of the key-value store. This is intended for eventual consistency. Due to the implementation, the eventual consistency occurs on write, but not read. 
 
 # To Run
 Build container image and tag it:
-''' $docker build -t 'tag' '''
+
+''' 
+$docker build -t 'tag' 
+'''
+
 Create a subnet with IP range 10.10.0.0/16:
-''' $docker network create --subnet=10.10.0.0/16 'subnet name' '''
+
+''' 
+$docker network create --subnet=10.10.0.0/16 'subnet name' 
+'''
 
 
 

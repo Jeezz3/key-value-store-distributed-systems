@@ -32,7 +32,7 @@ docker run --rm -p 8082:8090 --net='subnet name' --ip=10.10.0.2 --name="name1" -
 
 docker run --rm -p 8082:8090 --net='subnet name' --ip=10.10.0.2 --name="name2" -e=SOCKET_ADDRESS=10.10.0.3:8090 -e=VIEW=10.10.0.2:8090,10.10.0.3:8090,10.10.0.4:8090 'tag
 
-docker run --rm -p 8082:8090 --net='subnet name' --ip=10.10.0.2 --name="name2" -e=SOCKET_ADDRESS=10.10.0.4:8090 -e=VIEW=10.10.0.2:8090,10.10.0.3:8090,10.10.0.4:8090 'tag
+docker run --rm -p 8082:8090 --net='subnet name' --ip=10.10.0.2 --name="name3" -e=SOCKET_ADDRESS=10.10.0.4:8090 -e=VIEW=10.10.0.2:8090,10.10.0.3:8090,10.10.0.4:8090 'tag
 ```
 
 

@@ -15,15 +15,15 @@ A vector clock was used to track the causal metadata. The vector clock will be u
 # To Run
 Build container image and tag it:
 
-''' 
+```
 $docker build -t 'tag' 
-'''
+```
 
 Create a subnet with IP range 10.10.0.0/16:
 
-''' 
+``` 
 $docker network create --subnet=10.10.0.0/16 'subnet name' 
-'''
+```
 
 
 
